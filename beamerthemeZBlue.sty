@@ -1,0 +1,171 @@
+% adapted Philippe Dreuw and Thomas Deselaers
+% further adapted from edits by James Malcolm
+% also adapted from edits by Shawn Lankton 
+% Finally, Allen Zhang made some edits
+
+
+\ProvidesPackage{beamerthemeZBlue}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode<presentation>
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{changepage}
+
+\definecolor{butter}{rgb}{0.98824, 0.91373, 0.30980}		% #fce94f
+\definecolor{orange}{rgb}{0.98824, 0.68627, 0.24314}		% #fcaf3e
+\definecolor{deepskyblue}{RGB}{0, 191, 255}
+\definecolor{steelblue}{RGB}{173,216,230}
+\definecolor{darksteelblue}{RGB}{70,130,180}
+\definecolor{bccancer}{RGB}{28, 20, 76}
+
+\setbeamerfont{caption}{series=\large,size=\fontsize{48}{48}} 
+
+\setbeamercolor{background canvas}{bg=steelblue}
+
+\setbeamercolor{headline}{bg=bccancer}
+\setbeamercolor{footline}{bg=black}
+\setbeamerfont{footline}{size=\Large}
+\setbeamercolor{separation line}{bg=black}
+\setbeamerfont{title in headline}{size={\fontsize{48}{48}}}
+\setbeamercolor{title in headline}{fg=white}
+\setbeamercolor{author in headline}{fg=white}
+\setbeamercolor{institute in headline}{fg=lightgray}
+
+\setbeamercolor{framesubtitle}{fg=blue, bg=black}
+\setbeamercolor{author in head/foot}{fg=orange,bg=black}
+\setbeamercolor{title in head/foot}{fg=butter,bg=black}
+\setbeamercolor{website in footline}{fg=butter,bg=black}
+\setbeamercolor{email in footline}{fg=butter,bg=black}
+
+\setbeamercolor*{normal text}{fg=black, bg=white}
+\setbeamercolor*{block body}{fg=black,bg=white}
+\setbeamercolor*{block title}{fg=white,bg=darksteelblue}
+\setbeamerfont{block title}{size=\Huge,series=\sc\bf}
+\setbeamerfont{block body}{size={\fontsize{32}{32}}}
+\setbeamercolor{upper separation line head}{fg=black}
+
+% \setbeamertemplate{blocks}[rounded][shadow=true]
+
+% \setbeamertemplate{itemize items}[triangle]
+\setbeamertemplate{navigation symbols}{}  % no navigation on a poster
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+      
+\newcommand*{\SubtitleFont}{%
+     \usefont{\encodingdefault}{\rmdefault}{b}{sc}%
+     \fontsize{40}{40}%
+     \selectfont}
+     
+     
+\setbeamertemplate{block begin}{
+  \vskip2ex
+  \begin{beamercolorbox}[rounded=true,shadow=true,leftskip=1ex,colsep*=.5ex]{block title}%
+  \centering
+    \usebeamerfont*{block title}{\SubtitleFont \insertblocktitle}
+  \end{beamercolorbox}%
+  {
+  \ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body}%
+  \begin{beamercolorbox}[rounded=true,shadow=true,colsep*=.5ex,sep=.5ex,vmode]{block body}%
+    \ifbeamercolorempty[bg]{block body}{\vskip-.25ex}{\vskip-.5ex}\vbox{}%
+    \begin{adjustwidth}{1cm}{1cm}
+  }
+\setbeamertemplate{block end}{
+  \end{adjustwidth}
+  \end{beamercolorbox}
+}
+
+
+\setbeamertemplate{itemize items}{\huge$\bullet$} 
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{7.5pt}}{\enditemize}
+
+
+
+\newenvironment<>{myblock}[1]{%
+ \begin{actionenv}#2%
+ \def\insertblocktitle{\leftskip=10pt\rightskip=10pt #1\vspace{10pt}}%
+ \par%
+ \usebeamertemplate{block begin}\vspace{0pt}}
+ {\par\vspace{0pt}\usebeamertemplate{block end}
+ \end{actionenv}}
+ 
+%\setbeamercolor*{block title}{fg=darksteelblue,bg=white}
+%\setbeamerfont{block title}{size=\Large,series=\sc\bf}
+ 
+ \newenvironment<>{subblock}[1]{%
+ \begin{actionenv}#2%
+ \def\insertblocktitle{\leftskip=10pt\rightskip=10pt #1\vspace{10pt}}%
+ \par%
+ \usebeamertemplate{block begin}\vspace{0pt}}
+ {\par\vspace{0pt}\usebeamertemplate{block end}
+ \end{actionenv}}
+
+\newcommand*{\TitleFont}{%
+      \usefont{\encodingdefault}{\rmdefault}{b}{n}%
+      \fontsize{60}{80}%
+      \selectfont}
+      
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{headline}{
+  \leavevmode
+
+  \begin{beamercolorbox}[wd=\paperwidth,dp=75ex]{headline}
+    \begin{columns}[T]
+ %     \begin{column}{.02\paperwidth}
+   %   \end{column}
+     % \begin{column}{.07\paperwidth}
+   %   \end{column}
+   	\begin{column}{.17\paperwidth}
+	\end{column}
+      \begin{column}{0.66\paperwidth}
+        \vskip20ex
+        \centering
+        \usebeamercolor{title in headline}{\color{fg}\textbf{\TitleFont \inserttitle}\\[4ex]}
+        \usebeamercolor{author in headline}{\color{fg}\Huge{\insertauthor}\\[1ex]}
+        \usebeamercolor{institute in headline}{\color{fg}\Huge{\insertinstitute}\\[1ex]}
+        \vskip2ex
+      \end{column}
+      \begin{column}{.17\paperwidth}
+        \centering
+        \vskip10ex
+        \hspace*{-1.5in}
+        \includegraphics[height=0.05\paperwidth]{figures/bccancer-logo}
+        \vspace{1pt}
+      \end{column}
+    \end{columns}
+  \end{beamercolorbox}
+
+  \begin{beamercolorbox}[wd=\paperwidth]{lower separation line head}
+    \rule{0pt}{2pt}
+  \end{beamercolorbox}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{footline}{
+  \begin{beamercolorbox}[wd=\paperwidth]{upper separation line foot}
+    \rule{0pt}{2pt}
+  \end{beamercolorbox}
+  \leavevmode%
+  \begin{beamercolorbox}[ht=4ex,leftskip=1cm,rightskip=1cm]{author in head/foot}%
+    \usebeamercolor{website in footline}{\color{fg} \footleft}
+    \hfill
+    \usebeamercolor{email in footline}{\color{fg} \footright}
+    \vskip1ex
+  \end{beamercolorbox}
+  \vskip0pt%
+  \begin{beamercolorbox}[wd=\paperwidth]{lower separation line foot}
+    \rule{0pt}{2pt}
+  \end{beamercolorbox}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Display a grid to help align images ... and it looks nice with this color scheme
+%\beamertemplategridbackground[1cm]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \Mode<all>

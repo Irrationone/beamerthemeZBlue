@@ -1,0 +1,143 @@
+\documentclass[serif,mathserif,final,dvipsnames]{beamer}
+\mode<presentation>{\usetheme{ZBlue}}
+\usepackage{amsmath,amsfonts,amssymb,pxfonts,eulervm,xspace}
+\usepackage{graphicx}
+\graphicspath{{./figures/}}
+\usepackage[orientation=landscape,size=custom,width=121.92,height=91.44,scale=.6,debug]{beamerposter}
+\usepackage{caption}
+
+%-- Header and footer information ----------------------------------
+\newcommand{\footleft}{Team PHASAX}
+\newcommand{\footright}{https://github.com/STAT540-UBC/team\_PHASAX\_ovarian-cancer}
+
+\title{Immune response to clonal heterogeneity in high-grade serous ovarian cancer}
+\author{Choy WH, Ding X, Jobin P, Li X, Wang S, Zhang AW}
+\institute{University of British Columbia, Vancouver, Canada}
+%-------------------------------------------------------------------
+
+
+%-- Main Document --------------------------------------------------
+\begin{document}
+\begin{frame}{}
+  \begin{columns}[t]
+
+    %-- Column 1 ---------------------------------------------------
+    \begin{column}{0.32\linewidth}
+
+      %-- Block 1-1
+      \begin{myblock}{Background \& Motivation}
+      
+      \begin{wideitemize}
+      \item High-grade serous is a subtype of ovarian cancer characterized by treatment resistance and universally poor survival [cite].        \item Treatment resistance is thought to be the result of \textbf{intratumoural heterogeneity} (ITH) -- the idea that tumours are composed of multiple, genetically distinct subpopulations called \textbf{clones}.       \item If some clones in a tumour are treatment resistant, they will survive, leading to relapse and ultimately death. 
+      \begin{figure}
+      \centering
+      \includegraphics[width=0.75\columnwidth]{figures/hetero-wiki} 
+      \caption{Heterogeneous tumours can survive evolutionary bottlenecks induced by therapeutic pressure.}\label{fig:1}
+      \end{figure}      \item Tumour-infiltrating T- and B-cells are associated with positive survival in HGSC, suggesting that the immune system may be able to counteract ITH.      \item Our project will test this novel idea by exploring the relationship between T/B-cells and ITH. 
+      \end{wideitemize}
+      \end{myblock}
+
+      %-- Block 1-2
+      \begin{myblock}{Hypothesis}
+        \begin{wideitemize}
+        \item Intratumoural heterogeneity in HGSC is associated with diverse T- and B-cell repertoires.         \item Immune-related genes are differentially expressed between ITH groups (high vs. low).          \item Immune-related genes exhibit differential methylation between ITH groups.
+        \end{wideitemize}
+      \end{myblock}
+
+      %-- Block 1-3
+%      \begin{block}{Columns}
+  %      The columns will automatically align with each other and try to look
+  %      as nice as possible.  You may have to add {\tt$\backslash$vspace\{1pt\}}
+ %       commands to adjust the spacing here and there.  Remember that you can
+ %       use positive or negative numbers.
+ %     \end{block}
+
+     \begin{myblock}{Data}
+      Our dataset consists of 34 spatially sampled peritoneal tumours from 8 patients with HGSC. 
+      \begin{figure}
+      \centering
+      \includegraphics[width=0.4\columnwidth]{figures/sample-diagram} 
+      \caption{Spatially sampled tumours from multiple peritoneal sites in each patient (patient 9 shown as an example).}\label{fig:2}
+      \end{figure}
+        \begin{itemize}	\item Intratumoural heterogeneity levels, obtained from preprocessed whole-genome sequence data	\item T- and B-cell receptor sequencing (5' RACE PCR)	\item Array expression data (GeneChip Human Genome U133A 2.0) 	\item Methylation data (Illumina HumanMethylation450 BeadChip)
+        \end{itemize}
+      \end{myblock}
+
+    \end{column}%1
+
+    %-- Column 2 ---------------------------------------------------
+    \begin{column}{0.32\linewidth}
+
+      %-- Block 2-1
+      
+
+      %-- Block 2-2
+      \begin{myblock}{Methods}
+        \begin{figure}
+      \centering
+      \includegraphics[width=0.66\columnwidth]{figures/phasax_flowchart} 
+      \end{figure}
+      \end{myblock}
+
+      %-- Block 2-3
+      \begin{myblock}{Quality control}
+      \begin{itemize}      \item Gene expression values were RMA-normalized (\emph{affy} package) and corrected for array-specific batch effects with COMBAT (\emph{sva} package)
+      \end{itemize}
+      \begin{itemize}	\item Methylation values were SWAN-normalized with the \emph{minfi} package.  SWAN normalization minimizes technical variation by separately normalizing Infinium I and II-type probes. 
+      \end{itemize}
+      \end{myblock}
+    \begin{myblock}{Exploratory data analysis of TCR-seq data}
+      \begin{figure}[htb]
+          \centering
+          \includegraphics[width=.45\columnwidth]{../figures/TCR_correlation_heatmap}
+          \includegraphics[width=.45\columnwidth]{../figures/site_level_PCA_revised}
+          \caption{\textbf{Left:} Pearson correlation between T-cell receptor frequency distributions for each sample, showing that samples from the same patients are similar, as expected. \textbf{Right:} Principal component analysis on T-cell receptor profiles (using V/J segment information), also showing intrapatient clustering.}
+        \end{figure}
+      \end{myblock}
+      
+      \begin{myblock}{Defining TCR diversity}
+      We define TCR diversity by two measures: the \textbf{Shannon entropy} and \textbf{Gini coefficient} of the T-cell population frequency distribution (read counts per sequence). 
+      \begin{figure}[htb]
+          \centering
+          \includegraphics[width=.7\columnwidth]{figures/homogeneous_example}\\
+          \includegraphics[width=.7\columnwidth]{figures/heterogeneous_example}
+          \caption{Examples of low TCR diversity (top) and high TCR diversity (bottom) samples, where each T-cell population is represented by a different colour.}
+        \end{figure}
+      \end{myblock}
+
+    \end{column}%2
+
+    %-- Column 3 ---------------------------------------------------
+    \begin{column}{0.32\linewidth}
+
+      %-- Block 3-1
+      \begin{block}{Correlating ITH with immune diversity}
+      \begin{figure}[htb]
+          \centering
+          \includegraphics[width=.85\columnwidth]{../figures/tcr_vs_ith}
+          \caption{Boxplots showing TCR diversity, measured by the Shannon entropy and the Gini coefficient, for low, medium, and high ITH tertiles. No significant difference in TCR diversity was observed between low, med, and high ITH entropy tertiles (ANOVA $F$-test $p=0.938$ for Shannon entropy; $p=0.873$ for Gini coefficient). ITH entropy is a measure of clonal heterogeneity, calculated as the Shannon entropy of clonal frequencies.}
+        \end{figure}
+      \end{block}
+
+      %-- Block 3-2
+      \begin{block}{Differential analysis across ITH tertiles}
+        \begin{figure}[htb]
+          \centering
+          \raisebox{0.15\height}{\includegraphics[width=.45\columnwidth]{../figures/de_ith_groups}}
+          \raisebox{0\height}{\includegraphics[width=.45\columnwidth]{../figures/p_values_ITH_entropy}}
+          \caption{Left: Table of top 10 hits differentially expressed between high and low ITH groups, sorted by false discovery rate (FDR). No genes were significantly differentially expressed at an FDR threshold of 0.1. Right: P-value distribution for all genes.}
+        \end{figure}
+      \end{block}
+
+	\begin{block}{Differential methylation across ITH tertiles}
+      \end{block}
+
+      %-- Block 3-3
+      \begin{block}{Conclusions}
+      \end{block}
+
+    \end{column}%3
+
+  \end{columns}
+\end{frame}
+\end{document}
